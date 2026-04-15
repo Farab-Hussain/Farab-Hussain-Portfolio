@@ -35,9 +35,14 @@ const Contact = () => {
       setName("");
       setEmail("");
       setMessage("");
-    } catch (err: any) {
-      setStatus("error");
-      setError(err?.message || "Something went wrong.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setStatus("error");
+        setError(err.message);
+      } else {
+        setStatus("error");
+        setError("Something went wrong.");
+      }
     }
   };
 
